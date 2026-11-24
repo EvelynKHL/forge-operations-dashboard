@@ -7,6 +7,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 DB_PATH = Path(os.environ.get("FORGE_DB_PATH", Path(__file__).parent / "data" / "forge.db"))
+API_PORT = int(os.environ.get("FORGE_API_PORT", "8765"))
 SEED = [
     ("svc-001", "Identity Gateway", "Access & Identity", "AK", "Healthy", "99.99%", "Global", "2 min ago", "Authentication and token exchange for internal services.", "Tier 0", "42 ms"),
     ("svc-002", "Device Provisioning", "Fleet Systems", "MP", "Degraded", "98.72%", "US West", "4 min ago", "Enrollment and configuration for managed devices.", "Tier 1", "840 ms"),
@@ -84,5 +85,5 @@ class Handler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     with connect() as database:
-        print(f"Forge API ready on http://127.0.0.1:8000 (database: {DB_PATH})")
-    ThreadingHTTPServer(("127.0.0.1", 8000), Handler).serve_forever()
+        print(f"Forge API ready on http://127.0.0.1:{API_PORT} (database: {DB_PATH})")
+    ThreadingHTTPServer(("127.0.0.1", API_PORT), Handler).serve_forever()
