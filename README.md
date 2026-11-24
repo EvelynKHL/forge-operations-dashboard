@@ -33,7 +33,7 @@ Start the API in one terminal:
 python server.py
 ```
 
-On Windows, `py server.py` works as well. Keep it running; the API listens on `http://127.0.0.1:8000` and creates `data/forge.db` on first start.
+On Windows, `py server.py` works as well. Keep it running; the API listens on `http://127.0.0.1:8765` and creates `data/forge.db` on first start. Port `8765` avoids common local port conflicts; the Vite proxy uses the same port. To choose another port, set `FORGE_API_PORT` before starting both the API and Vite.
 
 Open a second terminal in the same project folder and start the React app:
 
@@ -55,8 +55,8 @@ The static frontend is written to `dist/`. The Python API must be hosted separat
 ## API examples
 
 ```bash
-curl http://127.0.0.1:8000/api/services
-curl -X POST http://127.0.0.1:8000/api/services \
+curl http://127.0.0.1:8765/api/services
+curl -X POST http://127.0.0.1:8765/api/services \
   -H "Content-Type: application/json" \
   -d '{"name":"Event Processor","team":"Platform Systems","region":"US West"}'
 ```
